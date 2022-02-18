@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Billing\Payment\Payme\Api;
+namespace Kadirov\Component\Billing\Payment\Payme\Api;
 
-use App\Component\Billing\Payment\Payme\Api\Traits\TransactionTrait;
-use App\Component\Billing\Payment\Payme\Constants\PaymeCancelingReason;
-use App\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
-use App\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
-use App\Component\Billing\Payment\Payme\Exceptions\PaymeException;
-use App\Component\Billing\Payment\Payme\Interfaces\PaymeBeforeCancelFinishedPaymentInterface;
-use App\Component\Billing\Payment\Payme\PaymeTransactionManager;
-use App\Entity\PaymeTransaction;
-use App\Repository\PaymeTransactionRepository;
+use Kadirov\Component\Billing\Payment\Payme\Api\Traits\TransactionTrait;
+use Kadirov\Component\Billing\Payment\Payme\Constants\PaymeCancelingReason;
+use Kadirov\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
+use Kadirov\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
+use Kadirov\Component\Billing\Payment\Payme\Exceptions\PaymeException;
+use Kadirov\Component\Billing\Payment\Payme\Interfaces\PaymeBeforeCancelFinishedPaymentInterface;
+use Kadirov\Component\Billing\Payment\Payme\PaymeTransactionManager;
+use Kadirov\Entity\PaymeTransaction;
+use Kadirov\Repository\PaymeTransactionRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Exception;
 

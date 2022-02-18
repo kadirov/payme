@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Component\Billing\Payment\Payme\Api\Traits;
+namespace Kadirov\Component\Billing\Payment\Payme\Api\Traits;
 
-use App\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
-use App\Component\Billing\Payment\Payme\Dtos\PaymeRequestParamsAccountDto;
-use App\Component\Billing\Payment\Payme\Exceptions\Constants\PaymeExceptionText;
-use App\Component\Billing\Payment\Payme\Exceptions\PaymeException;
+use Kadirov\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
+use Kadirov\Component\Billing\Payment\Payme\Dtos\PaymeRequestParamsAccountDto;
+use Kadirov\Component\Billing\Payment\Payme\Exceptions\Constants\PaymeExceptionText;
+use Kadirov\Component\Billing\Payment\Payme\Exceptions\PaymeException;
 
 /**
  * Trait GetAccountTrait

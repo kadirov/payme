@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Billing\Payment\Payme\Interfaces;
+namespace Kadirov\Component\Billing\Payment\Payme\Interfaces;
 
-use App\Entity\PaymeTransaction;
+use Kadirov\Entity\PaymeTransaction;
 
 interface PaymeBeforeCancelFinishedPaymentInterface
 {

@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace App\Entity;
+namespace Kadirov\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
-use App\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
-use App\Controller\PaymeInputAction;
-use App\Controller\PaymeTransactionCreateAction;
+use Kadirov\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
+use Kadirov\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
+use Kadirov\Controller\PaymeInputAction;
+use Kadirov\Controller\PaymeTransactionCreateAction;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

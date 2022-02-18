@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Command;
+namespace Kadirov\Command;
 
-use App\Command\Interfaces\GetOutputInterface;
-use App\Command\Traits\RunCommandTrait;
+use Kadirov\Command\Interfaces\GetOutputInterface;
+use Kadirov\Command\Traits\RunCommandTrait;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Core;
+namespace Kadirov\Component\Core;
 
-use App\Controller\Base\Constants\ResponseFormat;
+use Kadirov\Controller\Base\Constants\ResponseFormat;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;

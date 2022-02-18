@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Core;
+namespace Kadirov\Component\Core;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

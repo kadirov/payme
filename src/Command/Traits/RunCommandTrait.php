@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\Command\Traits;
+namespace Kadirov\Command\Traits;
 
-use App\Command\Interfaces\GetOutputInterface;
+use Kadirov\Command\Interfaces\GetOutputInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 

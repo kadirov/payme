@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Billing\Payment\Payme\Api;
+namespace Kadirov\Component\Billing\Payment\Payme\Api;
 
-use App\Component\Billing\Payment\Payme\Api\Traits\TransactionTrait;
-use App\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
-use App\Component\Billing\Payment\Payme\Exceptions\PaymeException;
-use App\Entity\PaymeTransaction;
-use App\Repository\PaymeTransactionRepository;
+use Kadirov\Component\Billing\Payment\Payme\Api\Traits\TransactionTrait;
+use Kadirov\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
+use Kadirov\Component\Billing\Payment\Payme\Exceptions\PaymeException;
+use Kadirov\Entity\PaymeTransaction;
+use Kadirov\Repository\PaymeTransactionRepository;
 use Doctrine\ORM\NonUniqueResultException;
 
 class PaymeCheckTransaction

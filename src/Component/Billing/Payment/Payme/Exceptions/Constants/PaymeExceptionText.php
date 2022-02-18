@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Billing\Payment\Payme\Exceptions\Constants;
+namespace Kadirov\Component\Billing\Payment\Payme\Exceptions\Constants;
 
 class PaymeExceptionText
 {

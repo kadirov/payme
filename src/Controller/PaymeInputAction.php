@@ -1,24 +1,24 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace Kadirov\Controller;
 
 use ApiPlatform\Core\Validator\ValidatorInterface;
-use App\Component\Billing\Payment\Payme\Api\PaymeCancelTransaction;
-use App\Component\Billing\Payment\Payme\Api\PaymeCheckPerformTransaction;
-use App\Component\Billing\Payment\Payme\Api\PaymeCheckTransaction;
-use App\Component\Billing\Payment\Payme\Api\PaymeCreateTransaction;
-use App\Component\Billing\Payment\Payme\Api\PaymePerformTransaction;
-use App\Component\Billing\Payment\Payme\Constants\PaymeMethodType;
-use App\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
-use App\Component\Billing\Payment\Payme\Dtos\PaymeResponseDto;
-use App\Component\Billing\Payment\Payme\Dtos\PaymeResponseErrorDto;
-use App\Component\Billing\Payment\Payme\Exceptions\Constants\PaymeExceptionText;
-use App\Component\Billing\Payment\Payme\Exceptions\PaymeException;
-use App\Component\User\CurrentUser;
-use App\Components\Core\ParameterGetter;
-use App\Controller\Base\AbstractController;
-use App\Controller\Base\ResponseFormat;
+use Kadirov\Component\Billing\Payment\Payme\Api\PaymeCancelTransaction;
+use Kadirov\Component\Billing\Payment\Payme\Api\PaymeCheckPerformTransaction;
+use Kadirov\Component\Billing\Payment\Payme\Api\PaymeCheckTransaction;
+use Kadirov\Component\Billing\Payment\Payme\Api\PaymeCreateTransaction;
+use Kadirov\Component\Billing\Payment\Payme\Api\PaymePerformTransaction;
+use Kadirov\Component\Billing\Payment\Payme\Constants\PaymeMethodType;
+use Kadirov\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
+use Kadirov\Component\Billing\Payment\Payme\Dtos\PaymeResponseDto;
+use Kadirov\Component\Billing\Payment\Payme\Dtos\PaymeResponseErrorDto;
+use Kadirov\Component\Billing\Payment\Payme\Exceptions\Constants\PaymeExceptionText;
+use Kadirov\Component\Billing\Payment\Payme\Exceptions\PaymeException;
+use Kadirov\Component\User\CurrentUser;
+use Kadirov\Component\Core\ParameterGetter;
+use Kadirov\Controller\Base\AbstractController;
+use Kadirov\Controller\Base\ResponseFormat;
 use Doctrine\ORM\NonUniqueResultException;
 use LogicException;
 use Psr\Log\LoggerInterface;

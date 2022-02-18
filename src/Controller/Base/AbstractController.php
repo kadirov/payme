@@ -2,14 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Base;
+namespace Kadirov\Controller\Base;
 
 use ApiPlatform\Core\Bridge\Symfony\Validator\Exception\ValidationException;
 use ApiPlatform\Core\Validator\ValidatorInterface;
-use App\Component\User\CurrentUser;
-use App\Component\User\Dtos\JwtUserDto;
-use App\Controller\Base\Constants\ResponseFormat;
-use App\Entity\User;
+use Kadirov\Controller\Base\Constants\ResponseFormat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,16 +17,13 @@ class AbstractController
 {
     private SerializerInterface $serializer;
     private ValidatorInterface  $validator;
-    private CurrentUser         $currentUser;
 
     public function __construct(
         SerializerInterface $serializer,
         ValidatorInterface $validator,
-        CurrentUser $currentUser
     ) {
         $this->serializer = $serializer;
         $this->validator = $validator;
-        $this->currentUser = $currentUser;
     }
 
     /**
@@ -108,16 +102,6 @@ class AbstractController
             $dtoClass,
             $format
         );
-    }
-
-    protected function getUser(): User
-    {
-        return $this->currentUser->getUser();
-    }
-
-    protected function getJwtUser(): JwtUserDto
-    {
-        return $this->currentUser->getJwtUser();
     }
 
     protected function findEntityOrError(ServiceEntityRepository $repository, int $id): object

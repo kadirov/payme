@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Controller\Base\Constants;
+namespace Kadirov\Controller\Base\Constants;
 
 class ResponseFormat
 {

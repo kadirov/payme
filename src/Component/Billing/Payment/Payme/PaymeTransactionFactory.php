@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Billing\Payment\Payme;
+namespace Kadirov\Component\Billing\Payment\Payme;
 
-use App\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
-use App\Entity\PaymeTransaction;
+use Kadirov\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
+use Kadirov\Entity\PaymeTransaction;
 
 class PaymeTransactionFactory
 {

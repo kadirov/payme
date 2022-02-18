@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace Kadirov\Controller;
 
-use App\Component\Billing\Payment\Payme\PaymeTransactionFactory;
-use App\Component\Billing\Payment\Payme\PaymeTransactionManager;
-use App\Controller\Base\AbstractController;
-use App\Entity\PaymeTransaction;
+use Kadirov\Component\Billing\Payment\Payme\PaymeTransactionFactory;
+use Kadirov\Component\Billing\Payment\Payme\PaymeTransactionManager;
+use Kadirov\Controller\Base\AbstractController;
+use Kadirov\Entity\PaymeTransaction;
 
 class PaymeTransactionCreateAction extends AbstractController
 {

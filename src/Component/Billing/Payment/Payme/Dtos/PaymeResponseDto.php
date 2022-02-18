@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace App\Component\Billing\Payment\Payme\Dtos;
+namespace Kadirov\Component\Billing\Payment\Payme\Dtos;
 
-use App\Component\Billing\Payment\Payme\Constants\PaymeCancelingReason;
-use App\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
+use Kadirov\Component\Billing\Payment\Payme\Constants\PaymeCancelingReason;
+use Kadirov\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
 
 /**
  * Uses as response for Payme

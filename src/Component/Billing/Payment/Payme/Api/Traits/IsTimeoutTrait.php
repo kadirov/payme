@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Billing\Payment\Payme\Api\Traits;
+namespace Kadirov\Component\Billing\Payment\Payme\Api\Traits;
 
 use DateInterval;
 use DateTime;

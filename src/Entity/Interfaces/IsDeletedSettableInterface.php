@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Entity\Interfaces;
+namespace Kadirov\Entity\Interfaces;
 
 interface IsDeletedSettableInterface
 {

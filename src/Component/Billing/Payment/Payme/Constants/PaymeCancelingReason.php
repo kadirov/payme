@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Component\Billing\Payment\Payme\Constants;
+namespace Kadirov\Component\Billing\Payment\Payme\Constants;
 
 /**
  * Class CancelingReason

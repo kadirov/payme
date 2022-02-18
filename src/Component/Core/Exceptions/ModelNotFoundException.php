@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Core\Exceptions;
+namespace Kadirov\Component\Core\Exceptions;
 
 use Exception;
 

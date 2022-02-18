@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Billing\Payment\Payme;
+namespace Kadirov\Component\Billing\Payment\Payme;
 
-use App\Component\Core\AbstractManager;
-use App\Entity\PaymeTransaction;
+use Kadirov\Component\Core\AbstractManager;
+use Kadirov\Entity\PaymeTransaction;
 
 /**
  * Class PaymeTransactionManager

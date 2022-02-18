@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Core;
+namespace Kadirov\Component\Core;
 
-use App\Entity\Interfaces\CreatedAtSettableInterface;
-use App\Entity\Interfaces\UpdatedAtSettableInterface;
+use Kadirov\Entity\Interfaces\CreatedAtSettableInterface;
+use Kadirov\Entity\Interfaces\UpdatedAtSettableInterface;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 

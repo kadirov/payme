@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Billing\Payment\Payme\Api\Traits;
+namespace Kadirov\Component\Billing\Payment\Payme\Api\Traits;
 
-use App\Component\Billing\Payment\Payme\Constants\PaymeCancelingReason;
-use App\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
-use App\Component\Billing\Payment\Payme\PaymeTransactionManager;
-use App\Entity\PaymeTransaction;
+use Kadirov\Component\Billing\Payment\Payme\Constants\PaymeCancelingReason;
+use Kadirov\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
+use Kadirov\Component\Billing\Payment\Payme\PaymeTransactionManager;
+use Kadirov\Entity\PaymeTransaction;
 
 trait MarkTransactionAsTimeoutTrait
 {

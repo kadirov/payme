@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Component\Billing\Payment\Payme\Api\Traits;
+namespace Kadirov\Component\Billing\Payment\Payme\Api\Traits;
 
-use App\Component\Billing\Payment\Payme\Exceptions\Constants\PaymeExceptionText;
-use App\Component\Billing\Payment\Payme\Exceptions\PaymeException;
-use App\Entity\PaymeTransaction;
-use App\Repository\PaymeTransactionRepository;
+use Kadirov\Component\Billing\Payment\Payme\Exceptions\Constants\PaymeExceptionText;
+use Kadirov\Component\Billing\Payment\Payme\Exceptions\PaymeException;
+use Kadirov\Entity\PaymeTransaction;
+use Kadirov\Repository\PaymeTransactionRepository;
 use Doctrine\ORM\NonUniqueResultException;
 
 /**
