@@ -33,7 +33,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @see PaymeInputAction
  * @see TestController
  * @see PaymeTransactionCreateAction
- * @ORM\Entity(repositoryClass="App\Repository\PaymeTransactionRepository")
+ * @ORM\Entity(repositoryClass="Kadirov\Repository\PaymeTransactionRepository")
  */
 class PaymeTransaction
 {

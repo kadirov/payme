@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Kadirov\Controller;
 
 use ApiPlatform\Core\Validator\ValidatorInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Kadirov\Component\Billing\Payment\Payme\Api\PaymeCancelTransaction;
 use Kadirov\Component\Billing\Payment\Payme\Api\PaymeCheckPerformTransaction;
 use Kadirov\Component\Billing\Payment\Payme\Api\PaymeCheckTransaction;
@@ -15,11 +17,9 @@ use Kadirov\Component\Billing\Payment\Payme\Dtos\PaymeResponseDto;
 use Kadirov\Component\Billing\Payment\Payme\Dtos\PaymeResponseErrorDto;
 use Kadirov\Component\Billing\Payment\Payme\Exceptions\Constants\PaymeExceptionText;
 use Kadirov\Component\Billing\Payment\Payme\Exceptions\PaymeException;
-use Kadirov\Component\User\CurrentUser;
 use Kadirov\Component\Core\ParameterGetter;
 use Kadirov\Controller\Base\AbstractController;
 use Kadirov\Controller\Base\ResponseFormat;
-use Doctrine\ORM\NonUniqueResultException;
 use LogicException;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
@@ -40,7 +40,6 @@ class PaymeInputAction extends AbstractController
     public function __construct(
         SerializerInterface $serializer,
         ValidatorInterface $validator,
-        CurrentUser $currentUser,
         private PaymeCheckPerformTransaction $checkPerformTransaction,
         private PaymeCreateTransaction $createTransaction,
         private PaymePerformTransaction $performTransaction,
@@ -49,9 +48,13 @@ class PaymeInputAction extends AbstractController
         private ParameterGetter $parameterGetter,
         private LoggerInterface $logger,
     ) {
-        parent::__construct($serializer, $validator, $currentUser);
+        parent::__construct($serializer, $validator);
     }
 
+    /**
+     * @throws ExceptionInterface
+     * @throws NonUniqueResultException
+     */
     public function __invoke(
         Request $request
     ) {
