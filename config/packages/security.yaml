@@ -1,0 +1,7 @@
+security:
+    firewalls:
+        payme:
+            pattern: ^/api/payments/payme
+            security: false
+            methods:
+                - post
