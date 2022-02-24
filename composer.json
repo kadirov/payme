@@ -1,6 +1,6 @@
 {
     "name": "kadirov/payme",
-    "type": "library",
+    "type": "symfony-bundle",
     "license": "proprietary",
     "minimum-stability": "stable",
     "prefer-stable": true,
