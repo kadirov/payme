@@ -18,6 +18,8 @@ Kadirov\PaymeBundle::class => ['all' => true],
 
 ```dotenv
 ### Payme
+PAYME_AFTER_FINISH_PAYMENT_CLASS=Your\Class\Namespace
+PAYME_BEFORE_CANCEL_FINISHED_PAYMENT_CLASS=Your\Class\Namespace
 PAYME_LOGIN=
 PAYME_KEY=
 PAYME_TEST_LOGIN=Paycom

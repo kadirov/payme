@@ -28,6 +28,11 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    Symfony\Component\DependencyInjection\ContainerInterface: ~
-    Kadirov\Component\Billing\Payment\Payme\Interfaces\BeforeCancelFinishedPaymentInterface: ~
-    Kadirov\Component\Billing\Payment\Payme\Interfaces\AfterFinishPaymentInterface: ~
+    Symfony\Component\DependencyInjection\ContainerInterface:
+        class: Symfony\Component\DependencyInjection\Container
+
+    Kadirov\Component\Billing\Payment\Payme\Interfaces\BeforeCancelFinishedPaymentInterface:
+        class: '%env(PAYME_AFTER_FINISH_PAYMENT_CLASS)%'
+
+    Kadirov\Component\Billing\Payment\Payme\Interfaces\AfterFinishPaymentInterface:
+        class: '%env(PAYME_BEFORE_CANCEL_FINISHED_PAYMENT_CLASS)%'
