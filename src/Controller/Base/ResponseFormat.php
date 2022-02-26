@@ -9,13 +9,6 @@ namespace Kadirov\Controller\Base;
  */
 class ResponseFormat
 {
-    /**
-     * jsonld
-     */
     public const JSONLD = 'jsonld';
-
-    /**
-     * json
-     */
     public const JSON = 'json';
 }

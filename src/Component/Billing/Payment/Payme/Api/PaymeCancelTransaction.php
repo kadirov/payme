@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Kadirov\Component\Billing\Payment\Payme\Api;
 
+use Doctrine\ORM\NonUniqueResultException;
+use Exception;
 use Kadirov\Component\Billing\Payment\Payme\Api\Traits\TransactionTrait;
 use Kadirov\Component\Billing\Payment\Payme\Constants\PaymeCancelingReason;
 use Kadirov\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
 use Kadirov\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
+use Kadirov\Component\Billing\Payment\Payme\Exceptions\BeforeCancelFinishedPaymentException;
 use Kadirov\Component\Billing\Payment\Payme\Exceptions\PaymeException;
-use Kadirov\Component\Billing\Payment\Payme\Interfaces\PaymeBeforeCancelFinishedPaymentInterface;
+use Kadirov\Component\Billing\Payment\Payme\Interfaces\BeforeCancelFinishedPaymentInterface;
 use Kadirov\Component\Billing\Payment\Payme\PaymeTransactionManager;
 use Kadirov\Entity\PaymeTransaction;
 use Kadirov\Repository\PaymeTransactionRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Exception;
 
 class PaymeCancelTransaction
 {
@@ -23,7 +24,7 @@ class PaymeCancelTransaction
     public function __construct(
         private PaymeTransactionRepository $transactionRepository,
         private PaymeTransactionManager $transactionManager,
-        private PaymeBeforeCancelFinishedPaymentInterface $paymeBeforeCancelPayment,
+        private BeforeCancelFinishedPaymentInterface $paymeBeforeCancelPayment,
     ) {
         $this->setTransactionRepository($transactionRepository);
     }
@@ -60,13 +61,16 @@ class PaymeCancelTransaction
     }
 
     /**
-     * @param PaymeTransaction $transaction
-     * @param PaymeRequestDto $requestDto
-     * @throws Exception
+     * @throws PaymeException
      */
     private function cancelFinishedTransaction(PaymeTransaction $transaction, PaymeRequestDto $requestDto): void
     {
-        $this->paymeBeforeCancelPayment->beforeCancelFinishedPayment($transaction);
+        try {
+            $this->paymeBeforeCancelPayment->beforeCancelFinishedPayment($transaction);
+        } catch (BeforeCancelFinishedPaymentException $e) {
+            throw new PaymeException($e->getMessage(), PaymeException::TRANSACTION_FINISHED_AND_CANNOT_BE_CANCELED);
+        }
+
         $transaction->setState(PaymeTransactionState::CANCELED_AFTER_FINISH);
         $this->updateTransaction($transaction, $requestDto);
     }

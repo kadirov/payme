@@ -11,7 +11,7 @@ use Kadirov\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
 use Kadirov\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
 use Kadirov\Component\Billing\Payment\Payme\Exceptions\Constants\PaymeExceptionText;
 use Kadirov\Component\Billing\Payment\Payme\Exceptions\PaymeException;
-use Kadirov\Component\Billing\Payment\Payme\Interfaces\PaymeAfterFinishPaymentInterface;
+use Kadirov\Component\Billing\Payment\Payme\Interfaces\AfterFinishPaymentInterface;
 use Kadirov\Component\Billing\Payment\Payme\PaymeTransactionManager;
 use Kadirov\Entity\PaymeTransaction;
 use Kadirov\Repository\PaymeTransactionRepository;
@@ -28,7 +28,7 @@ class PaymePerformTransaction
     (
         PaymeTransactionRepository $transactionRepository,
         private PaymeTransactionManager $transactionManager,
-        private PaymeAfterFinishPaymentInterface $afterFinishPayment
+        private AfterFinishPaymentInterface $afterFinishPayment
     ) {
         $this->setTransactionRepository($transactionRepository);
     }

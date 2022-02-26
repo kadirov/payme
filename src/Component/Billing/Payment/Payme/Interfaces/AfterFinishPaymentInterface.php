@@ -6,7 +6,7 @@ namespace Kadirov\Component\Billing\Payment\Payme\Interfaces;
 
 use Kadirov\Entity\PaymeTransaction;
 
-interface PaymeAfterFinishPaymentInterface
+interface AfterFinishPaymentInterface
 {
     public function afterFinishPayment(PaymeTransaction $transaction): void;
 }
