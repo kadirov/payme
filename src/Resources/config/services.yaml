@@ -1,3 +1,11 @@
+parameters:
+    payme_login: '%env(PAYME_LOGIN)%'
+    payme_key: '%env(PAYME_KEY)%'
+    payme_test_login: '%env(PAYME_TEST_LOGIN)%'
+    payme_test_key: '%env(PAYME_TEST_KEY)%'
+    payme_ip1: '%env(PAYME_IP1)%'
+    payme_ip2: '%env(PAYME_IP2)%'
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -11,8 +19,6 @@ services:
         exclude:
             - '../../DependencyInjection/'
             - '../../Entity/'
-            - '../../Kernel.php'
-            - '../../Tests/'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
