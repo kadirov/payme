@@ -29,5 +29,5 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     Symfony\Component\DependencyInjection\ContainerInterface: ~
-    Kadirov\Component\Billing\Payment\Payme\Interfaces\PaymeBeforeCancelFinishedPaymentInterface: ~
-    Kadirov\Component\Billing\Payment\Payme\Interfaces\PaymeAfterFinishPaymentInterface: ~
+    Kadirov\Component\Billing\Payment\Payme\Interfaces\BeforeCancelFinishedPaymentInterface: ~
+    Kadirov\Component\Billing\Payment\Payme\Interfaces\AfterFinishPaymentInterface: ~
