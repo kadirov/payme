@@ -11,9 +11,12 @@ use Kadirov\Entity\PaymeTransaction;
 
 class PaymeTransactionCreateAction extends AbstractController
 {
-    public function __invoke(PaymeTransactionFactory $factory, PaymeTransactionManager $manager): PaymeTransaction
-    {
-        $transaction = $factory->create();
+    public function __invoke(
+        PaymeTransaction $data,
+        PaymeTransactionFactory $factory,
+        PaymeTransactionManager $manager
+    ): PaymeTransaction {
+        $transaction = $factory->create($data->getCustomType(), $data->getCustomId());
         $manager->save($transaction, true);
         return $transaction;
     }

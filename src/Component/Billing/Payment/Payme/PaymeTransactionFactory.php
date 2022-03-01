@@ -9,10 +9,12 @@ use Kadirov\Entity\PaymeTransaction;
 
 class PaymeTransactionFactory
 {
-    public function create(): PaymeTransaction
+    public function create(int $customerType, int $customerId): PaymeTransaction
     {
         return (new PaymeTransaction())
             ->setCreateTime(time())
+            ->setCustomType($customerType)
+            ->setCustomId($customerId)
             ->setState(PaymeTransactionState::INITIAL);
     }
 }

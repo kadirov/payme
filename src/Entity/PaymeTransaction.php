@@ -1,107 +1,103 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Kadirov\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\ORM\Mapping as ORM;
 use Kadirov\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
 use Kadirov\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
 use Kadirov\Controller\PaymeInputAction;
 use Kadirov\Controller\PaymeTransactionCreateAction;
-use Doctrine\ORM\Mapping as ORM;
+use Kadirov\Repository\PaymeTransactionRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ApiResource(
- *     itemOperations = {
- *          "get" = { "security" = "is_granted('ROLE_ADMIN')" },
- *     },
- *     collectionOperations = {
- *          "post" = {
- *              "method" = "post",
- *              "path" = "payments/payme",
- *              "deserialize" = false,
- *              "input" = PaymeRequestDto::class,
- *              "controller" = PaymeInputAction::class,
- *              "output" = false,
- *          },
- *          "make" = {
- *              "method" = "post",
- *              "controller" = PaymeTransactionCreateAction::class,
- *          },
- *     }
- * )
- * @see PaymeRequestDto
- * @see PaymeInputAction
- * @see TestController
- * @see PaymeTransactionCreateAction
- * @ORM\Entity(repositoryClass="Kadirov\Repository\PaymeTransactionRepository")
- */
+#[ApiResource(
+    collectionOperations: [
+        'get' => [
+            'security'              => "is_granted('ROLE_ADMIN')",
+            'normalization_context' => ['groups' => ['paymeTransactions:read']],
+        ],
+    ],
+    itemOperations: [
+        'post' => [
+            'method'      => 'post',
+            'path'        => 'payments/payme',
+            'deserialize' => false,
+            'input'       => PaymeRequestDto::class,
+            'controller'  => PaymeInputAction::class,
+            'output'      => false,
+        ],
+        'make' => [
+            'method'     => 'post',
+            'controller' => PaymeTransactionCreateAction::class,
+        ],
+    ],
+    denormalizationContext: ['groups' => ['paymeTransaction:write']],
+    normalizationContext: ['groups' => ['paymeTransaction:read', 'paymeTransactions:read']],
+)]
+#[ORM\Entity(repositoryClass: PaymeTransactionRepository::class)]
 class PaymeTransaction
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[Groups(['paymeTransactions:read'])]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[Groups(['paymeTransactions:read'])]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $paymeId;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[Groups(['paymeTransactions:read'])]
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $time;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[Groups(['paymeTransactions:read'])]
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $amount;
 
-    /**
-     * @ORM\Column(type="bigint", nullable=true)
-     */
+    #[Groups(['paymeTransactions:read'])]
+    #[ORM\Column(type: 'bigint', nullable: true)]
     private $createTime;
 
-    /**
-     * @ORM\Column(type="bigint", nullable=true)
-     */
+    #[Groups(['paymeTransactions:read'])]
+    #[ORM\Column(type: 'bigint', nullable: true)]
     private $performTime;
 
-    /**
-     * @ORM\Column(type="bigint", nullable=true)
-     */
+    #[Groups(['paymeTransactions:read'])]
+    #[ORM\Column(type: 'bigint', nullable: true)]
     private $cancelTime;
+
+    #[Groups(['paymeTransactions:read'])]
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $reason;
 
     /**
      * A constant of {@see PaymeTransactionState}
      *
      * @see PaymeTransactionState
-     * @ORM\Column(type="integer")
      */
-    private $state;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $reason;
+    #[Groups(['paymeTransactions:read'])]
+    #[ORM\Column(type: 'integer')]
+    private $state = PaymeTransactionState::INITIAL;
 
     /**
      * Type of payment on your system.
      * for example: Plan, Buy products etc.
-     *
-     * @ORM\Column(type="integer")
      */
+    #[Groups(['paymeTransactions:read', 'paymeTransaction:write'])]
+    #[ORM\Column(type: 'integer')]
     private $customType;
 
     /**
      * ID of payment on your system.
      * for example: Plan id, or id of buying products
-     *
-     * @ORM\Column(type="integer")
      */
-    private $customId;
+    #[Groups(['paymeTransactions:read', 'paymeTransaction:write'])]
+    #[ORM\Column(type: 'integer')]
+    private ?int $customId;
 
     public function getId(): ?int
     {
@@ -220,6 +216,18 @@ class PaymeTransaction
     public function setCustomType(?int $customType): self
     {
         $this->customType = $customType;
+
+        return $this;
+    }
+
+    public function getCustomId(): ?int
+    {
+        return $this->customId;
+    }
+
+    public function setCustomId(?int $customId): self
+    {
+        $this->customId = $customId;
 
         return $this;
     }
