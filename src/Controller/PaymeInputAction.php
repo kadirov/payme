@@ -279,13 +279,13 @@ class PaymeInputAction extends AbstractController
             return;
         }
 
-        //$testLogin = $request->server->get('PAYME_TEST_LOGIN');
-        //$testKey = $request->server->get('PAYME_TEST_KEY');
-        //$appEnv = $request->server->get('APP_ENV');
-        //
-        //if (/*$appEnv === 'dev' && */ $auth[0] === $testLogin && $auth[1] === $testKey) {
-        //    return;
-        //}
+        $testLogin = $request->server->get('PAYME_TEST_LOGIN');
+        $testKey = $request->server->get('PAYME_TEST_KEY');
+        $appEnv = $request->server->get('APP_ENV');
+
+        if ($appEnv === 'dev' && $auth[0] === $testLogin && $auth[1] === $testKey) {
+            return;
+        }
 
         //$this->logger->info('!!!!! auth error');
         //$this->logger->info('login: ' . $login);
