@@ -40,38 +40,38 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: PaymeTransactionRepository::class)]
 class PaymeTransaction
 {
-    #[Groups(['paymeTransactions:read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['paymeTransactions:read'])]
     private $id;
 
-    #[Groups(['paymeTransactions:read'])]
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['paymeTransactions:read'])]
     private $paymeId;
 
-    #[Groups(['paymeTransactions:read'])]
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['paymeTransactions:read'])]
     private $time;
 
-    #[Groups(['paymeTransactions:read'])]
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['paymeTransactions:read'])]
     private $amount;
 
-    #[Groups(['paymeTransactions:read'])]
     #[ORM\Column(type: 'bigint', nullable: true)]
+    #[Groups(['paymeTransactions:read'])]
     private $createTime;
 
-    #[Groups(['paymeTransactions:read'])]
     #[ORM\Column(type: 'bigint', nullable: true)]
+    #[Groups(['paymeTransactions:read'])]
     private $performTime;
 
-    #[Groups(['paymeTransactions:read'])]
     #[ORM\Column(type: 'bigint', nullable: true)]
+    #[Groups(['paymeTransactions:read'])]
     private $cancelTime;
 
-    #[Groups(['paymeTransactions:read'])]
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['paymeTransactions:read'])]
     private $reason;
 
     /**
@@ -79,25 +79,25 @@ class PaymeTransaction
      *
      * @see PaymeTransactionState
      */
-    #[Groups(['paymeTransactions:read'])]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['paymeTransactions:read'])]
     private $state = PaymeTransactionState::INITIAL;
 
     /**
      * Type of payment on your system.
      * for example: Plan, Buy products etc.
      */
-    #[Groups(['paymeTransactions:read', 'paymeTransaction:write'])]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['paymeTransactions:read', 'paymeTransaction:write'])]
     private $customType;
 
     /**
      * ID of payment on your system.
      * for example: Plan id, or id of buying products
      */
-    #[Groups(['paymeTransactions:read', 'paymeTransaction:write'])]
     #[ORM\Column(type: 'integer')]
-    private ?int $customId;
+    #[Groups(['paymeTransactions:read', 'paymeTransaction:write'])]
+    private $customId;
 
     public function getId(): ?int
     {
