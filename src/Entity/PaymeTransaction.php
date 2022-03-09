@@ -23,10 +23,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'controller'  => PaymeInputAction::class,
             'output'      => false,
         ],
-        'make' => [
-            'method'     => 'post',
-            'controller' => PaymeTransactionCreateAction::class,
-        ],
     ],
     itemOperations: [
         'get' => [
