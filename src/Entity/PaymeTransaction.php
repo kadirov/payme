@@ -15,12 +15,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
     collectionOperations: [
-        'get' => [
-            'security'              => "is_granted('ROLE_ADMIN')",
-            'normalization_context' => ['groups' => ['paymeTransactions:read']],
-        ],
-    ],
-    itemOperations: [
         'post' => [
             'method'      => 'post',
             'path'        => 'payments/payme',
@@ -32,6 +26,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
         'make' => [
             'method'     => 'post',
             'controller' => PaymeTransactionCreateAction::class,
+        ],
+    ],
+    itemOperations: [
+        'get' => [
+            'security'              => "is_granted('ROLE_ADMIN')",
+            'normalization_context' => ['groups' => ['paymeTransactions:read']],
         ],
     ],
     denormalizationContext: ['groups' => ['paymeTransaction:write']],
