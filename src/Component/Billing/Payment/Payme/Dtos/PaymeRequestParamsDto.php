@@ -2,6 +2,7 @@
 
 namespace Kadirov\Component\Billing\Payment\Payme\Dtos;
 
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -11,39 +12,44 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class PaymeRequestParamsDto
 {
-    /**
-     * @Assert\Valid()
-     */
+    #[Assert\Valid]
+    #[Groups(['paymeTransaction:write'])]
     private ?PaymeRequestParamsAccountDto $account = null;
 
     /**
-     * transaction id at payme, ex: 5305e3bab097f420a62ced0b
+     * Transaction id at payme, ex: 5305e3bab097f420a62ced0b
      */
+    #[Groups(['paymeTransaction:write'])]
     private ?string $id = null;
 
     /**
      * With cents, for example 5000 means 50.00
      */
+    #[Groups(['paymeTransaction:write'])]
     private ?int $amount = null;
 
     /**
      * Created at on payme
      */
+    #[Groups(['paymeTransaction:write'])]
     private ?int $time = null;
 
     /**
      * Reason of the canceling transaction
      */
+    #[Groups(['paymeTransaction:write'])]
     private ?int $reason = null;
 
     /**
      * Timestamp, for filtering transaction list
      */
+    #[Groups(['paymeTransaction:write'])]
     private ?int $from = null;
 
     /**
      * Timestamp, for filtering transaction list
      */
+    #[Groups(['paymeTransaction:write'])]
     private ?int $to = null;
 
     /**

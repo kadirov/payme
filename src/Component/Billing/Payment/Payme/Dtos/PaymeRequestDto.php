@@ -2,6 +2,7 @@
 
 namespace Kadirov\Component\Billing\Payment\Payme\Dtos;
 
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -11,15 +12,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class PaymeRequestDto
 {
-    /**
-     * @Assert\NotBlank()
-     */
+    #[Assert\NotBlank]
+    #[Groups(['paymeTransaction:write'])]
     private string $method;
 
-    /**
-     * @Assert\Valid()
-     * @Assert\NotBlank()
-     */
+    #[Assert\Valid]
+    #[Assert\NotBlank]
+    #[Groups(['paymeTransaction:write'])]
     private PaymeRequestParamsDto $params;
 
     public function setParams(PaymeRequestParamsDto $params): void

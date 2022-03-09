@@ -55,9 +55,8 @@ class PaymeInputAction extends AbstractController
      * @throws ExceptionInterface
      * @throws NonUniqueResultException
      */
-    public function __invoke(
-        Request $request
-    ) {
+    public function __invoke(Request $request): Response
+    {
         $this->logger->info('PAYME header:');
         $this->logger->info(print_r($request->headers->all(), true));
 
@@ -286,11 +285,6 @@ class PaymeInputAction extends AbstractController
         if ($appEnv === 'dev' && $auth[0] === $testLogin && $auth[1] === $testKey) {
             return;
         }
-
-        //$this->logger->info('!!!!! auth error');
-        //$this->logger->info('login: ' . $login);
-        //$this->logger->info('key: ' . $key);
-        //$this->logger->info('encoded: ' . $encoded);
 
         throw new PaymeException(PaymeExceptionText::UNAUTHORIZED_EN, PaymeException::UNAUTHORIZED);
     }
