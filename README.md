@@ -43,12 +43,13 @@ security:
 
 ## How to use
 
-Implement [AfterFinishPaymentInterface](src/Component/Billing/Payment/Payme/Interfaces/AfterFinishPaymentInterface.php). 
-Method in this class will call after payment. 
+Create PaymeTransaction via [PaymeTransactionFactory](src/Component/Billing/Payment/Payme/PaymeTransactionFactory.php).
+When user pays this payment, system will call afterFinishPayment() method of [AfterFinishPaymentInterface](src/Component/Billing/Payment/Payme/Interfaces/AfterFinishPaymentInterface.php).
+So, create class which implements AfterFinishPaymentInterface.
 
 Also, you have to implement [BeforeCancelFinishedPaymentInterface](src/Component/Billing/Payment/Payme/Interfaces/BeforeCancelFinishedPaymentInterface.php). 
 Method in this class will call before cancel a payment. If canceling payment is impossible you can throw 
-[BeforeCancelFinishedPaymentException](src/Component/Billing/Payment/Payme/Exceptions/BeforeCancelFinishedPaymentException.php)
+[BeforeCancelFinishedPaymentException](src/Component/Billing/Payment/Payme/Exceptions/BeforeCancelFinishedPaymentException.php).
 
 ## How to connect your project with Payme
 
