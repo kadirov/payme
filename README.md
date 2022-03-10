@@ -44,6 +44,7 @@ security:
 ## How to use
 
 Create PaymeTransaction via [PaymeTransactionFactory](src/Component/Billing/Payment/Payme/PaymeTransactionFactory.php).
+For saving it in database you can use [PaymeTransactionManager](src/Component/Billing/Payment/Payme/PaymeTransactionManager.php).
 When user pays this payment, system will call afterFinishPayment() method of [AfterFinishPaymentInterface](src/Component/Billing/Payment/Payme/Interfaces/AfterFinishPaymentInterface.php).
 So, create class which implements AfterFinishPaymentInterface.
 
