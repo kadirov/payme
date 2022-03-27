@@ -237,15 +237,7 @@ class PaymeInputAction extends AbstractController
     private function authorization(Request $request): void
     {
         $this->logger->info('auth');
-
-        switch ($request->headers->get('X-Forwarded-For')) {
-            case $this->parameterGetter->getString('payme_ip1'):
-            case $this->parameterGetter->getString('payme_ip2'):
-                // do nothing
-                break;
-            default:
-                throw new RuntimeException('Wrong IP address');
-        }
+        $this->checkIp($request);
 
         $encoded = $request->headers->get('Authorization');
 
@@ -287,5 +279,22 @@ class PaymeInputAction extends AbstractController
         }
 
         throw new PaymeException(PaymeExceptionText::UNAUTHORIZED_EN, PaymeException::UNAUTHORIZED);
+    }
+
+    private function checkIp(Request $request)
+    {
+        if (!$this->parameterGetter->getBool('payme_check_ips')) {
+            return;
+        }
+
+        $requestIp = $request->headers->get('X-Forwarded-For');
+
+        if ($requestIp === null) {
+            throw new RuntimeException('Can not detect request IP');
+        }
+
+        if (!in_array($requestIp, $this->parameterGetter->getArray('payme_ips'), true)) {
+            throw new RuntimeException('Wrong IP address');
+        }
     }
 }

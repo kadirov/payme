@@ -3,8 +3,8 @@ parameters:
     payme_key: '%env(PAYME_KEY)%'
     payme_test_login: '%env(PAYME_TEST_LOGIN)%'
     payme_test_key: '%env(PAYME_TEST_KEY)%'
-    payme_ip1: '%env(PAYME_IP1)%'
-    payme_ip2: '%env(PAYME_IP2)%'
+    payme_ips: '%env(csv:PAYME_IPS)%'
+    payme_check_ips: '%env(PAYME_CHECK_IPS)%'
 
 services:
     # default configuration for services in *this* file
