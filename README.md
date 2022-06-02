@@ -2,24 +2,33 @@
 
 ## Installation
 
-### Install the package<br>
+### Install the package
 
 ```bash
 composer req kadirov/payme
 ```
 
-### Add it to _config/bundles.php_<br>
+### Add to config/bundles.php
 
 ```php
 Kadirov\PaymeBundle::class => ['all' => true],
 ```
 
-### Add next lines to your _.env_ file <br>
+### Create AfterFinishPaymentInterface and BeforeCancelFinishedPayment classes. Add next to config/services.yaml
+
+```yaml
+services:
+    Kadirov\Component\Billing\Payment\Payme\Interfaces\BeforeCancelFinishedPaymentInterface:
+        class: App\Component\Payme\BeforeCancelFinishedPayment
+
+    Kadirov\Component\Billing\Payment\Payme\Interfaces\AfterFinishPaymentInterface:
+        class: App\Component\Payme\AfterFinishPayment
+```
+
+### Add next lines to your .env file
 
 ```dotenv
 ### Payme
-PAYME_AFTER_FINISH_PAYMENT_CLASS=Your\Class\Namespace
-PAYME_BEFORE_CANCEL_FINISHED_PAYMENT_CLASS=Your\Class\Namespace
 PAYME_LOGIN=""
 PAYME_KEY=""
 PAYME_TEST_LOGIN=Paycom
@@ -29,7 +38,7 @@ PAYME_IPS="185.178.51.131,185.178.51.132,195.158.31.134,195.158.31.10,195.158.28
 ### Payme
 ```
 
-### Add payme route to _config/packages/security.yaml_ file
+### Add payme route to config/packages/security.yaml file
 
 ```yaml
 security:
@@ -79,6 +88,7 @@ Click to tab **Payment details** and create **transactionId**
 ```html
 <!-- Start Payme Form -->
 <form method="POST" action="https://checkout.paycom.uz">
+    <!-- Use https://test.checkout.paycom.uz URL for testing -->
 
     <!-- Payme Cashbox ID  -->
     <input type="hidden" name="merchant" value="{{ PAYME_LOGIN }}"/>

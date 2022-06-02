@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Kadirov\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
 use Kadirov\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
 use Kadirov\Controller\PaymeInputAction;
-use Kadirov\Controller\PaymeTransactionCreateAction;
 use Kadirov\Repository\PaymeTransactionRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -78,22 +77,6 @@ class PaymeTransaction
     #[ORM\Column(type: 'integer')]
     #[Groups(['paymeTransactions:read'])]
     private $state = PaymeTransactionState::INITIAL;
-
-    /**
-     * Type of payment on your system.
-     * for example: Plan, Buy products etc.
-     */
-    #[ORM\Column(type: 'integer')]
-    #[Groups(['paymeTransactions:read', 'paymeTransaction:write'])]
-    private $customType;
-
-    /**
-     * ID of payment on your system.
-     * for example: Plan id, or id of buying products
-     */
-    #[ORM\Column(type: 'integer')]
-    #[Groups(['paymeTransactions:read', 'paymeTransaction:write'])]
-    private $customId;
 
     public function getId(): ?int
     {
