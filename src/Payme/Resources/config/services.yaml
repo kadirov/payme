@@ -1,0 +1,27 @@
+parameters:
+    payme_cashbox_id: '%env(PAYME_CASHBOX_ID)%'
+    payme_cashbox_key: '%env(PAYME_CASHBOX_KEY)%'
+    payme_cashbox_test_id: '%env(PAYME_CASHBOX_TEST_ID)%'
+    payme_cashbox_test_key: '%env(PAYME_CASHBOX_TEST_KEY)%'
+    payme_ips: '%env(csv:PAYME_IPS)%'
+    payme_check_ips: '%env(PAYME_CHECK_IPS)%'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    Kadirov\Payme\:
+        resource: '../../'
+        exclude:
+            - '../../DependencyInjection/'
+            - '../../Entity/'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    Kadirov\Payme\Controller\:
+        resource: '../../Controller/'
+        tags: ['controller.service_arguments']

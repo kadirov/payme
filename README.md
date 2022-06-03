@@ -11,17 +11,17 @@ composer req kadirov/payme
 ### Add to config/bundles.php
 
 ```php
-Kadirov\PaymeBundle::class => ['all' => true],
+Kadirov\Payme\PaymeBundle::class => ['all' => true],
 ```
 
 ### Create AfterFinishPaymentInterface and BeforeCancelFinishedPayment classes. Add next to config/services.yaml
 
 ```yaml
 services:
-    Kadirov\Component\Billing\Payment\Payme\Interfaces\BeforeCancelFinishedPaymentInterface:
+    Kadirov\Payme\Component\Billing\Payment\Payme\Interfaces\BeforeCancelFinishedPaymentInterface:
         class: App\Component\Payme\BeforeCancelFinishedPayment
 
-    Kadirov\Component\Billing\Payment\Payme\Interfaces\AfterFinishPaymentInterface:
+    Kadirov\Payme\Component\Billing\Payment\Payme\Interfaces\AfterFinishPaymentInterface:
         class: App\Component\Payme\AfterFinishPayment
 ```
 
@@ -29,10 +29,10 @@ services:
 
 ```dotenv
 ### Payme
-PAYME_LOGIN=""
-PAYME_KEY=""
-PAYME_TEST_LOGIN=Paycom
-PAYME_TEST_KEY=""
+PAYME_CASHBOX_ID=""
+PAYME_CASHBOX_KEY=""
+PAYME_CASHBOX_TEST_ID=Paycom
+PAYME_CASHBOX_TEST_KEY=""
 PAYME_CHECK_IPS=true
 PAYME_IPS="185.178.51.131,185.178.51.132,195.158.31.134,195.158.31.10,195.158.28.124,195.158.5.82"
 ### Payme
@@ -52,28 +52,28 @@ security:
 
 ## How to use
 
-Create PaymeTransaction via [PaymeTransactionFactory](src/Component/Billing/Payment/Payme/PaymeTransactionFactory.php).
+Create PaymeTransaction via [PaymeTransactionFactory](src/Payme/Component/Billing/Payment/Payme/PaymeTransactionFactory.php).
 For saving it in database you can
-use [PaymeTransactionManager](src/Component/Billing/Payment/Payme/PaymeTransactionManager.php). When user pays this
+use [PaymeTransactionManager](src/Payme/Component/Billing/Payment/Payme/PaymeTransactionManager.php). When user pays this
 payment, system will call afterFinishPayment() method
-of [AfterFinishPaymentInterface](src/Component/Billing/Payment/Payme/Interfaces/AfterFinishPaymentInterface.php). So,
+of [AfterFinishPaymentInterface](src/Payme/Component/Billing/Payment/Payme/Interfaces/AfterFinishPaymentInterface.php). So,
 create class which implements AfterFinishPaymentInterface.
 
 Also, you have to
-implement [BeforeCancelFinishedPaymentInterface](src/Component/Billing/Payment/Payme/Interfaces/BeforeCancelFinishedPaymentInterface.php)
+implement [BeforeCancelFinishedPaymentInterface](src/Payme/Component/Billing/Payment/Payme/Interfaces/BeforeCancelFinishedPaymentInterface.php)
 . Method in this class will call before cancel a payment. If canceling payment is impossible you can throw
-[BeforeCancelFinishedPaymentException](src/Component/Billing/Payment/Payme/Exceptions/BeforeCancelFinishedPaymentException.php)
+[BeforeCancelFinishedPaymentException](src/Payme/Component/Billing/Payment/Payme/Exceptions/BeforeCancelFinishedPaymentException.php)
 .
 
 ## How to connect your project with Payme
 
-You should create company on [merchant.payme.uz](https://merchant.payme.uz/). Then copy ID and specify it as value of **
-PAYME_LOGIN**
+You should create cashbox on [merchant.payme.uz](https://merchant.payme.uz/). Then copy ID and specify it as value of 
+**PAYME_CASHBOX_ID**
 
-![](docs/img/company.png)
+![](docs/img/cashbox.png)
 
-Enter to cashbox of your project, click to settings then developer tools where you can find **key** and **test key**.
-Specify them as values of **PAYME_KEY** and **PAYME_TEST_KEY**
+Enter to the cashbox, click to settings then developer tools where you can find **key** and **test key**.
+Specify them as values of **PAYME_CASHBOX_KEY** and **PAYME_CASHBOX_TEST_KEY**
 
 Also, you have to enter **Endpoint URL** like to https://my-domain.com/api/payments/payme
 
@@ -91,7 +91,7 @@ Click to tab **Payment details** and create **transactionId**
     <!-- Use https://test.checkout.paycom.uz URL for testing -->
 
     <!-- Payme Cashbox ID  -->
-    <input type="hidden" name="merchant" value="{{ PAYME_LOGIN }}"/>
+    <input type="hidden" name="merchant" value="{{ PAYME_CASHBOX_ID }}"/>
 
     <!-- Cost with tiyin -->
     <input type="hidden" name="amount" value="{{ transaction.amount }}"/>
