@@ -24,7 +24,7 @@ class PaymeTransactionRepository extends ServiceEntityRepository
      /**
       * @return PaymeTransaction[] Returns an array of finished PaymeTransaction after createTime
       */
-    public function findFinishedAfter(string $createTime): array
+    public function findFinishedAfter(int $createTime): array
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.state = :state')
