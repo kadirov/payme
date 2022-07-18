@@ -186,28 +186,4 @@ class PaymeTransaction
 
         return $this;
     }
-
-    public function getCustomType(): ?int
-    {
-        return $this->customType;
-    }
-
-    public function setCustomType(?int $customType): self
-    {
-        $this->customType = $customType;
-
-        return $this;
-    }
-
-    public function getCustomId(): ?int
-    {
-        return $this->customId;
-    }
-
-    public function setCustomId(?int $customId): self
-    {
-        $this->customId = $customId;
-
-        return $this;
-    }
 }

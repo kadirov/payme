@@ -2,6 +2,7 @@
 
 namespace Kadirov\Payme\Repository;
 
+use Kadirov\Payme\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
 use Kadirov\Payme\Entity\PaymeTransaction;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -20,20 +21,21 @@ class PaymeTransactionRepository extends ServiceEntityRepository
         parent::__construct($registry, PaymeTransaction::class);
     }
 
-//     /**
-//      * @return PaymeTransaction[] Returns an array of PaymeTransaction objects
-//      */
-//    public function findByPaymeId(string $paymeId)
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.paymeId = :id')
-//            ->setParameter('id', $paymeId)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+     /**
+      * @return PaymeTransaction[] Returns an array of finished PaymeTransaction after createTime
+      */
+    public function findFinishedAfter(string $createTime): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.state = :state')
+            ->andWhere('p.createTime >= :createTime')
+            ->setParameter('state', PaymeTransactionState::FINISHED)
+            ->setParameter('createTime', $createTime)
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     /**
      * @param string $paymeId
