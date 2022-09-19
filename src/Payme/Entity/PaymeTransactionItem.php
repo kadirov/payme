@@ -3,11 +3,18 @@
 namespace Kadirov\Payme\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use Kadirov\Payme\Repository\PaymeTransactionItemRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Kadirov\Payme\Repository\PaymeTransactionItemRepository;
 
 #[ORM\Entity(repositoryClass: PaymeTransactionItemRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    collectionOperations: [],
+    itemOperations: [
+        'get' => [
+            'security' => "is_granted('ROLE_ADMIN')",
+        ],
+    ],
+)]
 class PaymeTransactionItem
 {
     #[ORM\Id]
