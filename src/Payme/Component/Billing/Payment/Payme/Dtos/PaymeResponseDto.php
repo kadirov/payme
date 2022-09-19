@@ -4,6 +4,7 @@ namespace Kadirov\Payme\Component\Billing\Payment\Payme\Dtos;
 
 use Kadirov\Payme\Component\Billing\Payment\Payme\Constants\PaymeCancelingReason;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * Uses as response for Payme
@@ -33,16 +34,19 @@ class PaymeResponseDto
     /**
      * Transaction created time in our system
      */
+    #[SerializedName('create_time')]
     private ?int $createTime = null;
 
     /**
      * Transaction performed time in our system
      */
+    #[SerializedName('perform_time')]
     private ?int $performTime = null;
 
     /**
      * Timestamp. Transaction cancel time in our system
      */
+    #[SerializedName('cancel_time')]
     private ?int $cancelTime = null;
 
     /**
@@ -50,6 +54,8 @@ class PaymeResponseDto
      * @see PaymeCancelingReason
      */
     private ?int $reason = null;
+
+    private ?PaymeResponseDetailDto $detail = null;
 
     /**
      * @return bool|null
@@ -99,9 +105,6 @@ class PaymeResponseDto
         return $this->performTime * 1000;
     }
 
-    /**
-     * @return int|null
-     */
     public function getCancelTime(): ?int
     {
         if ($this->cancelTime === null) {
@@ -111,87 +114,59 @@ class PaymeResponseDto
         return $this->cancelTime * 1000;
     }
 
-    /**
-     * @param bool|null $allow
-     * @return PaymeResponseDto
-     */
     public function setAllow(?bool $allow): PaymeResponseDto
     {
         $this->allow = $allow;
         return $this;
     }
 
-    /**
-     * @param string|null $transaction
-     * @return PaymeResponseDto
-     */
     public function setTransaction(?string $transaction): PaymeResponseDto
     {
         $this->transaction = $transaction;
         return $this;
     }
 
-    /**
-     * @param int|null $state
-     * @return PaymeResponseDto
-     */
     public function setState(?int $state): PaymeResponseDto
     {
         $this->state = $state;
         return $this;
     }
 
-    /**
-     * @param int|null $createTime
-     * @return PaymeResponseDto
-     */
     public function setCreateTime(?int $createTime): PaymeResponseDto
     {
         $this->createTime = $createTime;
         return $this;
     }
 
-    /**
-     * @param int|null $performTime
-     * @return PaymeResponseDto
-     */
     public function setPerformTime(?int $performTime): PaymeResponseDto
     {
         $this->performTime = $performTime;
         return $this;
     }
 
-    /**
-     * @param int|null $cancelTime
-     * @return PaymeResponseDto
-     */
     public function setCancelTime(?int $cancelTime): PaymeResponseDto
     {
         $this->cancelTime = $cancelTime;
         return $this;
     }
 
-    /**
-     * @param PaymeResponseErrorDto|null $error
-     */
-    public function setError(?PaymeResponseErrorDto $error): void
-    {
-        $this->error = $error;
-    }
-
-    /**
-     * @return int|null
-     */
     public function getReason(): ?int
     {
         return $this->reason;
     }
 
-    /**
-     * @param int|null $reason
-     */
     public function setReason(?int $reason): void
     {
         $this->reason = $reason;
+    }
+
+    public function getDetail(): ?PaymeResponseDetailDto
+    {
+        return $this->detail;
+    }
+
+    public function setDetail(?PaymeResponseDetailDto $detail): void
+    {
+        $this->detail = $detail;
     }
 }

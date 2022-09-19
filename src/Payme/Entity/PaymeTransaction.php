@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Kadirov\Payme\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
@@ -77,6 +79,15 @@ class PaymeTransaction
     #[ORM\Column(type: 'integer')]
     #[Groups(['paymeTransactions:read'])]
     private $state = PaymeTransactionState::INITIAL;
+
+    #[ORM\OneToMany(mappedBy: 'transaction', targetEntity: PaymeTransactionItem::class)]
+    #[Groups(['paymeTransactions:read'])]
+    private $items;
+
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -183,6 +194,36 @@ class PaymeTransaction
     public function setReason(?int $reason): self
     {
         $this->reason = $reason;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PaymeTransactionItem>
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
+
+    public function addItem(PaymeTransactionItem $item): self
+    {
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
+            $item->setTransaction($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItem(PaymeTransactionItem $item): self
+    {
+        if ($this->items->removeElement($item)) {
+            // set the owning side to null (unless already changed)
+            if ($item->getTransaction() === $this) {
+                $item->setTransaction(null);
+            }
+        }
 
         return $this;
     }

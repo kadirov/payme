@@ -13,6 +13,8 @@ use Kadirov\Payme\Component\Billing\Payment\Payme\Api\PaymeCreateTransaction;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Api\PaymePerformTransaction;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Constants\PaymeMethodType;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
+use Kadirov\Payme\Component\Billing\Payment\Payme\Dtos\PaymeResponseDetailDto;
+use Kadirov\Payme\Component\Billing\Payment\Payme\Dtos\PaymeResponseDetailItemDto;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Dtos\PaymeResponseDto;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Dtos\PaymeResponseErrorDto;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Exceptions\Constants\PaymeExceptionText;
@@ -26,8 +28,6 @@ use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
-use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -113,6 +113,21 @@ class PaymeInputAction extends AbstractController
             $response->setTransaction((string)$transaction->getId());
             $response->setState($transaction->getState());
             $response->setReason($transaction->getReason());
+
+            $items = [];
+
+            foreach ($transaction->getItems() as $item) {
+                $items[] = new PaymeResponseDetailItemDto(
+                    $item->getCount(),
+                    $item->getTitle(),
+                    (int)$item->getPrice(),
+                    $item->getCode(),
+                    $item->getPackageCode(),
+                    $item->getVatPercent(),
+                );
+            }
+
+            $response->setDetail(new PaymeResponseDetailDto($items));
         }
 
         $this->logger->info('(Payme) before return response');
@@ -139,12 +154,10 @@ class PaymeInputAction extends AbstractController
             return $this->responseNormalized(['error' => $responseErrorDto], Response::HTTP_OK, ResponseFormat::JSON);
         }
 
-        $cc2sc = new ObjectNormalizer(null, new CamelCaseToSnakeCaseNameConverter());
-
         $this->logger->info('(Payme) created ObjectNormalizer');
 
         return $this->responseNormalized(
-            ['result' => $cc2sc->normalize($responseDto)],
+            ['result' => $responseDto],
             Response::HTTP_OK,
             ResponseFormat::JSON
         );
