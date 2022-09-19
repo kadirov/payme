@@ -51,7 +51,7 @@ class PaymeTransaction
     #[Groups(['paymeTransactions:read'])]
     private $time;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'bigint', nullable: true)]
     #[Groups(['paymeTransactions:read'])]
     private $amount;
 
@@ -118,12 +118,12 @@ class PaymeTransaction
         return $this;
     }
 
-    public function getAmount(): ?int
+    public function getAmount(): ?string
     {
         return $this->amount;
     }
 
-    public function setAmount(?int $amount): self
+    public function setAmount(?string $amount): self
     {
         $this->amount = $amount;
 

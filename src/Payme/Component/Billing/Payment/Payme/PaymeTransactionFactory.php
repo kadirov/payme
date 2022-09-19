@@ -9,7 +9,7 @@ use Kadirov\Payme\Entity\PaymeTransaction;
 
 class PaymeTransactionFactory
 {
-    public function create(int $amount): PaymeTransaction
+    public function create(string $amount): PaymeTransaction
     {
         return (new PaymeTransaction())
             ->setCreateTime(time())
