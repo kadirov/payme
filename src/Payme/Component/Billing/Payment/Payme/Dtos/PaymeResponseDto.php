@@ -4,6 +4,7 @@ namespace Kadirov\Payme\Component\Billing\Payment\Payme\Dtos;
 
 use Kadirov\Payme\Component\Billing\Payment\Payme\Constants\PaymeCancelingReason;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
@@ -16,11 +17,13 @@ class PaymeResponseDto
     /**
      * Set us true if is everything ok
      */
+    #[Groups(['paymeTransactions:read'])]
     private ?bool $allow = null;
 
     /**
      * Transaction id in our system
      */
+    #[Groups(['paymeTransactions:read'])]
     private ?string $transaction = null;
 
     /**
@@ -29,61 +32,55 @@ class PaymeResponseDto
      *
      * @see PaymeTransactionState
      */
+    #[Groups(['paymeTransactions:read'])]
     private ?int $state = null;
 
     /**
      * Transaction created time in our system
      */
     #[SerializedName('create_time')]
+    #[Groups(['paymeTransactions:read'])]
     private ?int $createTime = null;
 
     /**
      * Transaction performed time in our system
      */
     #[SerializedName('perform_time')]
+    #[Groups(['paymeTransactions:read'])]
     private ?int $performTime = null;
 
     /**
      * Timestamp. Transaction cancel time in our system
      */
     #[SerializedName('cancel_time')]
+    #[Groups(['paymeTransactions:read'])]
     private ?int $cancelTime = null;
 
     /**
      * Reason of canceling. A constant of {@see PaymeCancelingReason}
      * @see PaymeCancelingReason
      */
+    #[Groups(['paymeTransactions:read'])]
     private ?int $reason = null;
 
+    #[Groups(['paymeTransactions:read'])]
     private ?PaymeResponseDetailDto $detail = null;
 
-    /**
-     * @return bool|null
-     */
     public function getAllow(): ?bool
     {
         return $this->allow;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTransaction(): ?string
     {
         return $this->transaction;
     }
 
-    /**
-     * @return int|null
-     */
     public function getState(): ?int
     {
         return $this->state;
     }
 
-    /**
-     * @return int|null
-     */
     public function getCreateTime(): ?int
     {
         if ($this->createTime === null) {
@@ -93,9 +90,6 @@ class PaymeResponseDto
         return $this->createTime * 1000;
     }
 
-    /**
-     * @return int|null
-     */
     public function getPerformTime(): ?int
     {
         if ($this->performTime === null) {
