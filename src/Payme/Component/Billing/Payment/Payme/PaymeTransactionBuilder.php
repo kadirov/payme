@@ -22,10 +22,12 @@ class PaymeTransactionBuilder
         $this->transaction = null;
     }
 
-    public function createTransaction(string $amount): void
+    public function createTransaction(string $amount): static
     {
         $this->transaction = $this->transactionFactory->create($amount);
         $this->transactionManager->save($this->transaction);
+
+        return $this;
     }
 
     public function addItem(
@@ -35,7 +37,7 @@ class PaymeTransactionBuilder
         string $price,
         string $title,
         float $vatPercent
-    ): void {
+    ): static {
         $this->throwErrorIfTransactionIsNotCreated();
 
         $item = $this->transactionItemFactory->create(
@@ -49,6 +51,8 @@ class PaymeTransactionBuilder
         );
 
         $this->transactionItemManager->save($item);
+
+        return $this;
     }
 
     public function getResult(): PaymeTransaction

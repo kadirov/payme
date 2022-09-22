@@ -52,10 +52,28 @@ security:
 
 ## How to use
 
-Create PaymeTransaction via [PaymeTransactionFactory](src/Payme/Component/Billing/Payment/Payme/PaymeTransactionFactory.php).
-For saving it in database you can
-use [PaymeTransactionManager](src/Payme/Component/Billing/Payment/Payme/PaymeTransactionManager.php). When user pays this
-payment, system will call afterFinishPayment() method
+Create PaymeTransaction via createTransaction() method of [PaymeTransactionBuilder](src/Payme/Component/Billing/Payment/Payme/PaymeTransactionBuilder.php).
+For fiscalization you can also call addItem() method. 
+
+### Example of simple using
+```php
+$paymeTransaction = $paymeTransactionBuilder
+            ->createTransaction($price)
+            ->getResult();
+````
+
+### Example with fiscalization
+```php
+$paymeTransaction = $paymeTransactionBuilder
+    ->createTransaction($finalPrice)
+    ->addItem('10315002001000000', 3, '195815', $consultingPrice, 'Consulting services', 15)
+    ->addItem('10305005001000000', 1, '195763', $softwarePrice, 'Software Development', 15)
+    ->getResult();    
+
+````
+
+
+When user pays this payment, system will call afterFinishPayment() method
 of [AfterFinishPaymentInterface](src/Payme/Component/Billing/Payment/Payme/Interfaces/AfterFinishPaymentInterface.php). So,
 create class which implements AfterFinishPaymentInterface.
 
