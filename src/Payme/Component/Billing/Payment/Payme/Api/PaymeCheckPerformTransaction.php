@@ -50,7 +50,7 @@ class PaymeCheckPerformTransaction
             throw new PaymeException(PaymeExceptionText::WRONG_STATE_EN, PaymeException::WRONG_USER_DATA);
         }
 
-        if ($transaction->getAmount() !== $requestDto->getParams()->getAmount()) {
+        if ($transaction->getAmount() !== (string)$requestDto->getParams()->getAmount()) {
             throw new PaymeException(PaymeExceptionText::WRONG_AMOUNT_EN, PaymeException::WRONG_AMOUNT);
         }
 

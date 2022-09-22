@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kadirov\Payme\Component\Billing\Payment\Payme\Api;
 
+use Exception;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Api\Traits\GetAccountTrait;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Api\Traits\IsTimeoutTrait;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Api\Traits\MarkTransactionAsTimeoutTrait;
@@ -15,7 +16,6 @@ use Kadirov\Payme\Component\Billing\Payment\Payme\Exceptions\PaymeException;
 use Kadirov\Payme\Component\Billing\Payment\Payme\PaymeTransactionManager;
 use Kadirov\Payme\Entity\PaymeTransaction;
 use Kadirov\Payme\Repository\PaymeTransactionRepository;
-use Exception;
 
 /**
  * Class PaymeCreateTransaction
@@ -50,7 +50,7 @@ class PaymeCreateTransaction
         $account = $this->getAccountOrError($requestDto);
         $transaction = $this->findTransactionOrError((int)$account->getTransactionId());
 
-        if ($transaction->getAmount() !== $requestDto->getParams()->getAmount()) {
+        if ($transaction->getAmount() !== (string)$requestDto->getParams()->getAmount()) {
             throw new PaymeException(PaymeExceptionText::WRONG_AMOUNT_EN, PaymeException::WRONG_AMOUNT);
         }
 
