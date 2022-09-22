@@ -29,14 +29,11 @@ class PaymeCreateTransaction
     use IsTimeoutTrait;
     use MarkTransactionAsTimeoutTrait;
 
-    private PaymeTransactionManager $transactionManager;
-
     public function __construct(
         PaymeTransactionRepository $paymeTransactionRepository,
-        PaymeTransactionManager $transactionManager
+        private PaymeTransactionManager $transactionManager,
     ) {
         $this->setTransactionRepository($paymeTransactionRepository);
-        $this->transactionManager = $transactionManager;
     }
 
     /**

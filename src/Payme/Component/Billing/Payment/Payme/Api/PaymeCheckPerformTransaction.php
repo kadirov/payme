@@ -8,6 +8,9 @@ use Kadirov\Payme\Component\Billing\Payment\Payme\Api\Traits\GetAccountTrait;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Api\Traits\TransactionTrait;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Constants\PaymeTransactionState;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
+use Kadirov\Payme\Component\Billing\Payment\Payme\Dtos\PaymeResponseDetailDto;
+use Kadirov\Payme\Component\Billing\Payment\Payme\Dtos\PaymeResponseDetailItemDto;
+use Kadirov\Payme\Component\Billing\Payment\Payme\Dtos\PaymeResponseDto;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Exceptions\Constants\PaymeExceptionText;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Exceptions\PaymeException;
 use Kadirov\Payme\Component\Billing\Payment\Payme\PaymeTransactionManager;
@@ -37,9 +40,10 @@ class PaymeCheckPerformTransaction
 
     /**
      * @param PaymeRequestDto $requestDto
+     * @param PaymeResponseDto $responseDto
      * @throws PaymeException
      */
-    public function check(PaymeRequestDto $requestDto): void
+    public function check(PaymeRequestDto $requestDto, PaymeResponseDto $responseDto): void
     {
         $account = $this->getAccountOrError($requestDto);
         $transaction = $this->findTransactionOrError((int)$account->getTransactionId());
@@ -54,8 +58,20 @@ class PaymeCheckPerformTransaction
             throw new PaymeException(PaymeExceptionText::WRONG_AMOUNT_EN, PaymeException::WRONG_AMOUNT);
         }
 
-        $this->logger->info('(Payme) PaymeCheckPerformTransaction: before save');
+        $items = [];
 
+        foreach ($transaction->getItems() as $item) {
+            $items[] = new PaymeResponseDetailItemDto(
+                $item->getCount(),
+                $item->getTitle(),
+                (int)$item->getPrice(),
+                $item->getCode(),
+                $item->getPackageCode(),
+                $item->getVatPercent(),
+            );
+        }
+
+        $responseDto->setDetail(new PaymeResponseDetailDto($items));
         $this->transactionManager->save($transaction, true);
     }
 }

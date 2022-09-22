@@ -13,8 +13,6 @@ use Kadirov\Payme\Component\Billing\Payment\Payme\Api\PaymeCreateTransaction;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Api\PaymePerformTransaction;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Constants\PaymeMethodType;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Dtos\PaymeRequestDto;
-use Kadirov\Payme\Component\Billing\Payment\Payme\Dtos\PaymeResponseDetailDto;
-use Kadirov\Payme\Component\Billing\Payment\Payme\Dtos\PaymeResponseDetailItemDto;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Dtos\PaymeResponseDto;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Exceptions\PaymeException;
 use Kadirov\Payme\Component\Billing\Payment\Payme\PaymeAuthenticationChecker;
@@ -101,15 +99,15 @@ class PaymeInputAction extends AbstractController
     private function callMethod(PaymeRequestDto $requestDto): PaymeResponseDto
     {
         $this->validate($requestDto);
-        $response = new PaymeResponseDto();
+        $responseDto = new PaymeResponseDto();
         $transaction = null;
 
         $this->logger->info('(Payme) Method: ' . $requestDto->getMethod());
 
         switch ($requestDto->getMethod()) {
             case PaymeMethodType::CHECK_PERFORM_TRANSACTION:
-                $this->checkPerformTransaction->check($requestDto);
-                $response->setAllow(true);
+                $this->checkPerformTransaction->check($requestDto, $responseDto);
+                $responseDto->setAllow(true);
                 break;
 
             case PaymeMethodType::CREATE_TRANSACTION:
@@ -130,39 +128,19 @@ class PaymeInputAction extends AbstractController
         }
 
         if ($transaction !== null) {
-            $this->updateResponse($response, $requestDto, $transaction);
+            $this->updateResponse($responseDto, $transaction);
         }
 
-        return $response;
+        return $responseDto;
     }
 
-    private function updateResponse(
-        PaymeResponseDto $response,
-        PaymeRequestDto $requestDto,
-        PaymeTransaction $transaction
-    ): void {
+    private function updateResponse(PaymeResponseDto $response, PaymeTransaction $transaction): void
+    {
         $response->setCreateTime($transaction->getCreateTime());
         $response->setPerformTime($transaction->getPerformTime());
         $response->setCancelTime($transaction->getCancelTime());
         $response->setTransaction((string)$transaction->getId());
         $response->setState($transaction->getState());
         $response->setReason($transaction->getReason());
-
-        if ($requestDto->getMethod() === PaymeMethodType::CHECK_PERFORM_TRANSACTION) {
-            $items = [];
-
-            foreach ($transaction->getItems() as $item) {
-                $items[] = new PaymeResponseDetailItemDto(
-                    $item->getCount(),
-                    $item->getTitle(),
-                    (int)$item->getPrice(),
-                    $item->getCode(),
-                    $item->getPackageCode(),
-                    $item->getVatPercent(),
-                );
-            }
-
-            $response->setDetail(new PaymeResponseDetailDto($items));
-        }
     }
 }
