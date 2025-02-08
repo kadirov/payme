@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Kadirov\Payme\Controller\Base;
 
-use ApiPlatform\Core\Bridge\Symfony\Validator\Exception\ValidationException;
-use ApiPlatform\Core\Validator\ValidatorInterface;
+use ApiPlatform\Validator\Exception\ValidationException;
+use ApiPlatform\Validator\ValidatorInterface;
 use Kadirov\Payme\Controller\Base\Constants\ResponseFormat;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +15,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 class AbstractController
 {
     public function __construct(
-        private SerializerInterface $serializer,
-        private ValidatorInterface $validator,
+        private readonly SerializerInterface $serializer,
+        private readonly ValidatorInterface $validator,
     ) {
     }
 

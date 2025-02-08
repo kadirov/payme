@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Kadirov\Payme\Controller;
 
-use ApiPlatform\Core\Validator\ValidatorInterface;
+use ApiPlatform\Validator\ValidatorInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Api\PaymeCancelTransaction;
 use Kadirov\Payme\Component\Billing\Payment\Payme\Api\PaymeCheckPerformTransaction;
