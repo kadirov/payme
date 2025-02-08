@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Kadirov\Payme\Component\Core;
 
-use Kadirov\Payme\Entity\Interfaces\CreatedAtSettableInterface;
-use Kadirov\Payme\Entity\Interfaces\UpdatedAtSettableInterface;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Kadirov\Payme\Entity\Interfaces\CreatedAtSettableInterface;
+use Kadirov\Payme\Entity\Interfaces\UpdatedAtSettableInterface;
 
 abstract class AbstractManager
 {
@@ -33,7 +33,7 @@ abstract class AbstractManager
         return $this->entityManager;
     }
 
-    private function updateCreatedOrUpdatedDates(object $entity)
+    private function updateCreatedOrUpdatedDates(object $entity): void
     {
         if ($entity->getId() === null && $entity instanceof CreatedAtSettableInterface) {
             $entity->setCreatedAt(new DateTime());

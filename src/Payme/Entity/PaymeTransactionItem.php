@@ -2,18 +2,18 @@
 
 namespace Kadirov\Payme\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use Doctrine\ORM\Mapping as ORM;
 use Kadirov\Payme\Repository\PaymeTransactionItemRepository;
 
 #[ORM\Entity(repositoryClass: PaymeTransactionItemRepository::class)]
 #[ApiResource(
-    collectionOperations: [],
-    itemOperations: [
-        'get' => [
-            'security' => "is_granted('ROLE_ADMIN')",
-        ],
-    ],
+    operations: [
+        new Get(
+            security: "is_granted('ROLE_ADMIN')"
+        )
+    ]
 )]
 class PaymeTransactionItem
 {
@@ -49,7 +49,7 @@ class PaymeTransactionItem
         return $this->id;
     }
 
-    public function getTransaction(): ?self
+    public function getTransaction(): ?PaymeTransaction
     {
         return $this->transaction;
     }
